@@ -1,6 +1,5 @@
 import functools
 import uuid
-import datetime
 from dataclasses import asdict
 from functions import youtube_link
 from movie_library.forms import LoginForm, RegisterForm, MovieForm, ExtendedMovieForm
@@ -124,12 +123,8 @@ def add_movie():
         current_app.db.user.update_one(
             {"_id": session["user_id"]}, {"$push": {"movies": movie._id}}
         )
-
         return redirect(url_for(".movie", _id=movie._id))
-
-    return render_template(
-        "new_movie.html", title="Movies Watchlist - Add Movie", form=form
-    )
+    return render_template("new_movie.html", title="Movies Watchlist - Add Movie", form=form)
 
 
 @pages.get("/movie/<string:_id>")
@@ -159,11 +154,10 @@ def edit_movie(_id: str):
 
 @pages.get("/movie/<string:_id>/watch")
 @login_required
-def watch_today(_id):
+def watched(_id):
     current_app.db.movie.update_one(
-        {"_id": _id}, {"$set": {"last_watched": datetime.datetime.today()}}
+        {"_id": _id}, {"$set": {"watched": True}}
     )
-
     return redirect(url_for(".movie", _id=_id))
 
 
