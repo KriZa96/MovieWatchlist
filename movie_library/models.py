@@ -9,7 +9,7 @@ class Movie:
     director: str
     year: int
     cast: list[str] = field(default_factory=list)
-    watched: bool = None
+    watched: bool = False
     rating: int = 0
     tags: list[str] = field(default_factory=list)
     description: str = None

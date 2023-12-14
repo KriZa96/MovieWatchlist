@@ -155,8 +155,9 @@ def edit_movie(_id: str):
 @pages.get("/movie/<string:_id>/watch")
 @login_required
 def watched(_id):
-    current_app.db.movie.update_one(
-        {"_id": _id}, {"$set": {"watched": True}}
+    movie_database = current_app.db.movie
+    movie_database.update_one(
+        {"_id": _id}, {"$set": {"watched": not movie_database.find_one({"_id": _id})["watched"]}}
     )
     return redirect(url_for(".movie", _id=_id))
 
@@ -166,7 +167,6 @@ def watched(_id):
 def rate_movie(_id):
     rating = int(request.args.get("rating"))
     current_app.db.movie.update_one({"_id": _id}, {"$set": {"rating": rating}})
-
     return redirect(url_for(".movie", _id=_id))
 
 
