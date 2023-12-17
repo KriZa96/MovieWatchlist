@@ -124,7 +124,7 @@ def add_movie():
             {"_id": session["user_id"]}, {"$push": {"movies": movie._id}}
         )
         return redirect(url_for(".movie", _id=movie._id))
-    return render_template("new_movie.html", title="Movies Watchlist - Add Movie", form=form)
+    return render_template("new_movie_new.html", title="Movies Watchlist - Add Movie", form=form)
 
 
 @pages.get("/movie/<string:_id>")
