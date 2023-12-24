@@ -3,6 +3,10 @@
   --text-light: #fbf2f2;
   --text-muted: #595959;
 
+  --list-elements-hover: #595959;
+  --list-elements: #ddd;
+  --list-text: #000;
+
   --background-color: #fff;
   --accent-color: #f56565;
   --accent-color-2: #3bb54a;
@@ -15,6 +19,10 @@
   --text-dark: #fbf2f2;
   --text-light: #000;
   --text-muted: #595959;
+
+  --list-elements-hover: #595959;
+  --list-elements: #ddd;
+  --list-text: #000;
 
   --background-color: #1c2023;
   --accent-color: #f56565;

@@ -3,7 +3,7 @@
     {{ field.label(class_="form__label") }}
     {{ field(class_="form-control form__field")}}
 
-    {%- for error in field.errors %}
+    {% for error in field.errors %}
         <span class="form__error">{{ error }}</span>
     {% endfor %}
 </div>
@@ -15,7 +15,7 @@
     {{ field.label(class_="form__label") }}
     {{ field(rows=4, class_="form__field", style="resize: none") }}
 
-    {%- for error in field.errors %}
+    {% for error in field.errors %}
         <span class="form__error">{{ error }}</span>
     {% endfor %}
 </div>

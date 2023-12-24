@@ -124,7 +124,7 @@ def add_movie():
             {"_id": session["user_id"]}, {"$push": {"movies": movie._id}}
         )
         return redirect(url_for(".movie", _id=movie._id))
-    return render_template("new_movie.html", title="Movies Watchlist - Add Movie", form=form)
+    return render_template("new_movie_new.html", title="Movies Watchlist - Add Movie", form=form)
 
 
 @pages.get("/movie/<string:_id>")
@@ -145,7 +145,9 @@ def edit_movie(_id: str):
         movie.cast = form.cast.data
         movie.tags = form.tags.data
         movie.description = form.description.data
-        movie.video_link = youtube_link(form.video_link.data)
+        movie.video_link = form.video_link.data
+        if "youtube" in movie.video_link:
+            movie.video_link = youtube_link(movie.video_link)
 
         current_app.db.movie.update_one({"_id": movie._id}, {"$set": asdict(movie)})
         return redirect(url_for(".movie", _id=movie._id))
