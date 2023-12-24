@@ -20,7 +20,6 @@
     margin-bottom: 1.5rem;
 }
 .search-element .form-control{
-    font-size: 1.4rem;
     outline: none;
     color: var(--list-text);;
     background: var(--background-color);

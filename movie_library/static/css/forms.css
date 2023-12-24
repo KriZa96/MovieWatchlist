@@ -106,6 +106,15 @@
   background: var(--accent-color-2);
 }
 
+#buttons {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#import_button {
+  margin-left: 0;
+}
+
 /* Styles specific to the form buttons */
 .button--form {
   margin: 2rem 0 0 auto;

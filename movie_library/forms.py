@@ -54,7 +54,7 @@ class RegisterForm(FlaskForm):
 
 class MovieForm(FlaskForm):
     title = StringField("Title", validators=[InputRequired()], render_kw={"onclick": "findMovies()", "onkeyup": "findMovies()"}, id="movie-search-box")
-    director = StringField("Director", validators=[InputRequired()])
+    director = StringField("Director", validators=[InputRequired()], id="movie-director")
 
     year = IntegerField(
         "Year",
@@ -62,6 +62,7 @@ class MovieForm(FlaskForm):
             InputRequired(),
             NumberRange(min=1878, message="Please enter a year in the format YYYY."),
         ],
+        id="movie-year"
     )
 
     submit = SubmitField("Add Movie")
@@ -83,9 +84,9 @@ class StringListField(TextAreaField):
 
 
 class ExtendedMovieForm(MovieForm):
-    cast = StringListField("Cast")
-    tags = StringListField("Tags")
-    description = TextAreaField("Description")
-    video_link = URLField("Video link")
+    cast = StringListField("Cast", id="movie-cast")
+    tags = StringListField("Tags", id="movie-tags")
+    description = TextAreaField("Description", id="movie-description")
+    video_link = URLField("Video link", id="movie-video_link")
 
     submit = SubmitField("Submit")
