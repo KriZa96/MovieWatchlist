@@ -5,11 +5,23 @@ const description = document.getElementById('movie-description');
 const movieTrailer = document.getElementById("movie-video_link")
 const apiKey = '9cf43f07825083878030a29d1919039b';
 
-const import_button = document.createElement("button");
-import_button.id = "import_button"
-import_button.innerHTML = "Import Data"; // Set button text
-import_button.className = "button button--form"
-import_button.type = "button"
+
+function fillCast(data) {
+  const actors = data.Actors.replace(/, /g, "\n");
+  return actors;
+}
+
+
+function fillTags(data){
+  const tags = data.Genre.replace(/, /g, "\n");
+  return tags;
+}
+
+
+function fillDescription(data){
+  const description = data.Plot;
+  return description
+}
 
 
 async function getMovieData() {
@@ -24,23 +36,13 @@ async function getMovieData() {
     }
 }
 
-function fillCast(data) {
-  const actors = data.Actors.replace(/, /g, "\n");
-  return actors;
-}
-
-function fillTags(data){
-  const tags = data.Genre.replace(/, /g, "\n");
-  return tags;
-}
-
 
 async function searchMovieTrailer(movieTitle) {
   const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(movieTitle)}`;
   const searchResponse = await fetch(searchUrl);
   const searchData = await searchResponse.json();
 
-  if (searchData.results && searchData.results.length > 0) {
+  if (searchData.results) {
     const movieId = searchData.results[0].id;
     const videoUrl = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}`;
 
@@ -54,22 +56,27 @@ async function searchMovieTrailer(movieTitle) {
         break;
       }
     }
-    if (trailerKey === null) {
+    if (!trailerKey) {
       trailerKey = videoData.results[0].key;
     }
 
     return `https://www.youtube.com/watch?v=${trailerKey}`;
   } else {
-    alert("Cant import trailer for the movie.")
+    alert("Can't find movie trailer.");
   }
 }
 
 
+const import_button = document.createElement("button");
+import_button.id = "import_button"
+import_button.innerHTML = "Import Data"; // Set button text
+import_button.className = "button button--form"
+import_button.type = "button"
 import_button.onclick = async function() {
   const data = await getMovieData();
   cast.value = fillCast(data);
   tags.value = fillTags(data);
-  description.value = data.Plot;
+  description.value = fillDescription(data);
   movieTrailer.value = await searchMovieTrailer(data.Title);
 };
 
