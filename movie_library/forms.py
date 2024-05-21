@@ -76,7 +76,6 @@ class StringListField(TextAreaField):
             return ""
 
     def process_formdata(self, valuelist):
-        # checks valuelist contains at least 1 element, and the first element isn't falsy (i.e. empty string)
         if valuelist and valuelist[0]:
             self.data = [line.strip() for line in valuelist[0].split("\n")]
         else:

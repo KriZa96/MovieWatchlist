@@ -1,7 +1,7 @@
 import functools
 import uuid
 from dataclasses import asdict
-from movie_library.functions import youtube_link
+from movie_library.ytlparse import youtube_link
 from movie_library.forms import LoginForm, RegisterForm, MovieForm, ExtendedMovieForm
 from movie_library.models import User, Movie
 from passlib.hash import pbkdf2_sha256
@@ -131,6 +131,11 @@ def add_movie():
 def movie(_id: str):
     movie = Movie(**current_app.db.movie.find_one({"_id": _id}))
     return render_template("movie_details.html", movie=movie)
+
+@pages.get("/movie/<string:_id>/delete")
+def delete_movie(_id: str):
+    movie = current_app.db.movie.delete_one({"_id": _id})
+    return index()
 
 
 @pages.route("/edit/<string:_id>", methods=["GET", "POST"])

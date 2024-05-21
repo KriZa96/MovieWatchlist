@@ -12,11 +12,13 @@
                 <col style="width: 60%">
                 <col style="width: 25%">
                 <col style="width: 15%">
+                <col style="width: 15%">
             </colgroup>
             <thead>
                 <tr class="table__header">
                     <th class="table__cell table__cell--header">Title</th>
                     <th class="table__cell table__cell--header">Release Date</th>
+                    <th class="table__cell table__cell--header"></th>
                     <th class="table__cell table__cell--header"></th>
                 </tr>
             </thead>
@@ -29,6 +31,7 @@
                         </td>
                         <td class="table__cell">{{ movie.year }}</td>
                         <td class="table__cell"><a href="{{ url_for('pages.movie', _id=movie._id) }}" class="table__link">View</a></td>
+                        <td class="table__cell"><a href="{{ url_for('pages.delete_movie', _id=movie._id) }}" class="table__link">Delete</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
